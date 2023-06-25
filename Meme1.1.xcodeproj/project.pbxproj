@@ -16,6 +16,7 @@
 		83BAB4542A485BF600D363F1 /* Meme1_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAB4532A485BF600D363F1 /* Meme1_1Tests.swift */; };
 		83BAB45E2A485BF600D363F1 /* Meme1_1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAB45D2A485BF600D363F1 /* Meme1_1UITests.swift */; };
 		83BAB4602A485BF600D363F1 /* Meme1_1UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAB45F2A485BF600D363F1 /* Meme1_1UITestsLaunchTests.swift */; };
+		83BAB46D2A489B4700D363F1 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BAB46C2A489B4700D363F1 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		83BAB4592A485BF600D363F1 /* Meme1.1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Meme1.1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BAB45D2A485BF600D363F1 /* Meme1_1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme1_1UITests.swift; sourceTree = "<group>"; };
 		83BAB45F2A485BF600D363F1 /* Meme1_1UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme1_1UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		83BAB46C2A489B4700D363F1 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				83BAB4452A485BF600D363F1 /* Assets.xcassets */,
 				83BAB4472A485BF600D363F1 /* LaunchScreen.storyboard */,
 				83BAB44A2A485BF600D363F1 /* Info.plist */,
+				83BAB46C2A489B4700D363F1 /* Meme.swift */,
 			);
 			path = Meme1.1;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83BAB4412A485BF500D363F1 /* ViewController.swift in Sources */,
+				83BAB46D2A489B4700D363F1 /* Meme.swift in Sources */,
 				83BAB43D2A485BF500D363F1 /* AppDelegate.swift in Sources */,
 				83BAB43F2A485BF500D363F1 /* SceneDelegate.swift in Sources */,
 			);
@@ -439,11 +443,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Meme1.1/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to take photos and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library to select and save photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -466,11 +471,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Meme1.1/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to take photos and videos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library to select and save photos.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
