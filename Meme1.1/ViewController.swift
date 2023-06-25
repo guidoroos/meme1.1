@@ -11,7 +11,7 @@
 import Foundation
 import UIKit
 
-class ViewController : UIViewController,
+class EditMemeViewController : UIViewController,
                        UIImagePickerControllerDelegate,
                        UINavigationControllerDelegate,
                        UITextFieldDelegate
@@ -41,7 +41,8 @@ class ViewController : UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTextFields()
+        setupTextFields(textField: topTextField, defaultText:"TOP")
+        setupTextFields(textField: bottomTextField, defaultText:"BOTTOM")
         
         setupNavigationBar()
         setupBottomToolbar()
@@ -86,21 +87,15 @@ class ViewController : UIViewController,
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func setupTextFields() {
-        bottomTextField.delegate = self
-        topTextField.delegate = self
-        
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.text = "Top"
-        bottomTextField.text = "Bottom"
-        
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        
-        topTextField.borderStyle = .none
-        bottomTextField.borderStyle = .none
+    private func setupTextFields(
+        textField: UITextField,
+        defaultText: String
+    ) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.text = defaultText
+        textField.textAlignment = .center
+        textField.borderStyle = .none
     }
     
     @objc
@@ -138,7 +133,13 @@ class ViewController : UIViewController,
     
     func setupBottomToolbar() {
         let photoIcon = UIBarButtonItem(image: UIImage(systemName: "camera.fill"), style: .plain, target: self, action: #selector(photoItemTapped))
-        photoIcon.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+        #if targetEnvironment(simulator)
+        photoIcon.isEnabled = false
+        #else
+        UIImagePickerController.isSourceTypeAvailable(.camera)
+        #endif
+        
         photoIcon.tintColor = UIColor.gray
         
         let albumText = UIBarButtonItem(title: "Album", style: .plain, target: self, action: #selector(albumItemTapped))
@@ -149,9 +150,16 @@ class ViewController : UIViewController,
     }
     
     @objc func shareItemTapped() {
-        let image = generateMemeImage()
+        let meme = generateMemeImage()
         
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = { (activity,completed, items, error) in
+            if (completed) {
+                self.save (meme: meme)
+                self.dismiss(animated:true, completion: nil)
+            }
+            
+        }
         
         present(activityViewController, animated: true, completion: nil)
     }
@@ -186,7 +194,11 @@ class ViewController : UIViewController,
         }
     }
     
-    func generateMemeImage () -> UIImage {
+    func save (meme: Meme) {
+        //todo save meme somehow
+    }
+    
+    func generateMemeImage () -> Meme {
         // Hide toolbar and navbar
         toolbar.isHidden = true
         navigationBar.isHidden = true
@@ -207,9 +219,9 @@ class ViewController : UIViewController,
             memedImage: memedImage
         )
         
-        //todo do something with meme object
         
-        return memedImage
+        
+        return meme
     }
 }
 
