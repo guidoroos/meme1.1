@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditMemeViewController.swift
 //  Meme1.1
 //
 //  Created by Guido Roos on 25/06/2023.
@@ -12,10 +12,12 @@ import Foundation
 import UIKit
 
 class EditMemeViewController : UIViewController,
-                       UIImagePickerControllerDelegate,
-                       UINavigationControllerDelegate,
-                       UITextFieldDelegate
+                               UIImagePickerControllerDelegate,
+                               UINavigationControllerDelegate,
+                               UITextFieldDelegate
 {
+    
+    var meme: Meme? = nil
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var navigationBar: UINavigationBar!
@@ -28,18 +30,15 @@ class EditMemeViewController : UIViewController,
     private var isBottomTextFieldEdited = false
     private var isTopTextFieldEdited = false
     
-    private  let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.black,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont(
-            name: "HelveticaNeue-CondensedBlack",
-            size: 40
-        )!,
-        NSAttributedString.Key.strokeWidth: -2
-    ]
-
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let setMeme = meme {
+            imageView.image = setMeme.originalImage
+            topTextField.text = setMeme.topText
+            bottomTextField.text = setMeme.bottomText
+        }
         
         setupTextFields(textField: topTextField, defaultText:"TOP")
         setupTextFields(textField: bottomTextField, defaultText:"BOTTOM")
@@ -75,7 +74,6 @@ class EditMemeViewController : UIViewController,
         }
     }
     
-    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -92,7 +90,7 @@ class EditMemeViewController : UIViewController,
         defaultText: String
     ) {
         textField.delegate = self
-        textField.defaultTextAttributes = memeTextAttributes
+        textField.defaultTextAttributes = Utils.memeTextAttributes
         textField.text = defaultText
         textField.textAlignment = .center
         textField.borderStyle = .none
@@ -121,7 +119,7 @@ class EditMemeViewController : UIViewController,
         let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelItemTapped))
         
         shareItem.tintColor = UIColor.gray
-        shareItem.isEnabled = false
+        shareItem.isEnabled = meme != nil
         
         let navigationItem = UINavigationItem()
         navigationItem.leftBarButtonItem = shareItem
@@ -134,11 +132,11 @@ class EditMemeViewController : UIViewController,
     func setupBottomToolbar() {
         let photoIcon = UIBarButtonItem(image: UIImage(systemName: "camera.fill"), style: .plain, target: self, action: #selector(photoItemTapped))
         
-        #if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
         photoIcon.isEnabled = false
-        #else
+#else
         UIImagePickerController.isSourceTypeAvailable(.camera)
-        #endif
+#endif
         
         photoIcon.tintColor = UIColor.gray
         
@@ -152,6 +150,7 @@ class EditMemeViewController : UIViewController,
     @objc func shareItemTapped() {
         let meme = generateMemeImage()
         
+        // On finish share save and navigate back to sent memes table view
         let activityViewController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = { (activity,completed, items, error) in
             if (completed) {
@@ -182,7 +181,6 @@ class EditMemeViewController : UIViewController,
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
-
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -195,7 +193,11 @@ class EditMemeViewController : UIViewController,
     }
     
     func save (meme: Meme) {
-        //todo save meme somehow
+        appDelegate.memes.append(meme)
+        
+        NotificationCenter.default.post(name: Notification.Name("DataUpdatedNotification"), object: nil)
+        
+        self.dismiss(animated:true)
     }
     
     func generateMemeImage () -> Meme {
@@ -218,8 +220,6 @@ class EditMemeViewController : UIViewController,
             originalImage: imageView.image!,
             memedImage: memedImage
         )
-        
-        
         
         return meme
     }
