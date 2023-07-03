@@ -52,6 +52,7 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate,UITabl
         if selectedItemPosition == indexPath {
             let detailController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
             detailController.meme = memes[indexPath.row]
+            detailController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(detailController, animated: true)
         }
         else {

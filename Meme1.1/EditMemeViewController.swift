@@ -164,20 +164,20 @@ class EditMemeViewController : UIViewController,
     }
     
     @objc func cancelItemTapped() {
-        imageView.image = nil
-        shareItem.isEnabled = false
+        self.dismiss(animated:true, completion: nil)
     }
     
     @objc func photoItemTapped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
+        pickImage(sourceType: .camera)
     }
     
     @objc func albumItemTapped() {
+        pickImage(sourceType: .photoLibrary)
+    }
+    
+    private func pickImage (sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }

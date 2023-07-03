@@ -15,6 +15,6 @@ struct Utils {
             name: "HelveticaNeue-CondensedBlack",
             size: 40
         )!,
-        NSAttributedString.Key.strokeWidth: -2
+        NSAttributedString.Key.strokeWidth: -3.5
     ]
 }

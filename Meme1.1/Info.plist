@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <string>Main</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to select photos.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera to capture photos.</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -16,12 +23,7 @@
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
-<key>NSPhotoLibraryUsageDescription</key>
-<string>We need access to your photo library to select photos.</string>
-<key>NSCameraUsageDescription</key>
-<string>We need access to your camera to capture photos.</string>
-				</dict>
+
 			</array>
 		</dict>
 	</dict>
